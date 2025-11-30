@@ -6,6 +6,11 @@ const reservationSchema = new mongoose.Schema({
   boatName: { type: String, required: true },
   checkIn: { type: Date, required: true },
   checkOut: { type: Date, required: true },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  }, // Référence à l'utilisateur qui a créé la réservation
 });
 
 module.exports = mongoose.model("Reservation", reservationSchema);

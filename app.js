@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-
 require("dotenv").config();
 const connectDB = require("./config/db");
-
 connectDB();
 
 const createError = require("http-errors");
@@ -13,24 +11,27 @@ const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-
-const app = express();
-
-// import routes
 const catwayRoutes = require("./routes/catwayRoutes");
 const reservationRoutes = require("./routes/reservationRoutes");
+const authRoutes = require("./routes/authRoutes");
+
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// middlewares
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// use routes
+//Route publiques
+app.use("/auth", authRoutes);
+
+//Routes protégées
 app.use("/catways", catwayRoutes);
 app.use("/catways/:idCatway/reservations", reservationRoutes);
 
