@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+
+<h2>Liste des utilisateurs</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>ID</th>
+    <th>Nom</th>
+    <th>Email</th>
+  </tr>
+
+  <% users.forEach(u => { %>
+  <tr>
+    <td><%= u._id %></td>
+    <td><%= u.name %></td>
+    <td><%= u.email %></td>
+  </tr>
+  <% }) %>
+</table>
+
+<a href="/dashboard">← Retour au dashboard</a>
+
+<%- include("partials/footer") %>

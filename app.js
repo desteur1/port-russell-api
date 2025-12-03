@@ -14,6 +14,10 @@ const usersRouter = require("./routes/users");
 const catwayRoutes = require("./routes/catwayRoutes");
 const reservationRoutes = require("./routes/reservationRoutes");
 const authRoutes = require("./routes/authRoutes");
+const catwayFormRoutes = require("./routes/catwayFormRoutes");
+const reservationFormRoutes = require("./routes/reservationFormRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
+const documentationRoutes = require("./routes/docRoutes");
 
 const app = express();
 
@@ -34,6 +38,11 @@ app.use("/auth", authRoutes);
 //Routes protégées
 app.use("/catways", catwayRoutes);
 app.use("/catways/:idCatway/reservations", reservationRoutes);
+app.use("/dashboard", dashboardRoutes);
+app.use("/", documentationRoutes);
+//Routes des formulaires
+app.use("/form/catways", catwayFormRoutes);
+app.use("/form/reservations", reservationFormRoutes);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

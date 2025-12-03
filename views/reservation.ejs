@@ -1,0 +1,22 @@
+<!--détails réservations-->
+<%- include("partials/header") %>
+
+<h2>Détails de la Réservation</h2>
+
+<p><strong>ID :</strong> <%= reservation._id %></p>
+<p><strong>Catway :</strong> <%= reservation.catwayNumber %></p>
+<p><strong>Client :</strong> <%= reservation.clientName %></p>
+<p><strong>Bateau :</strong> <%= reservation.boatName %></p>
+<p>
+  <strong>Check-in :</strong> <%= reservation.checkIn ?
+  reservation.checkIn.toLocaleDateString() : '' %>
+</p>
+<p>
+  <strong>Check-out :</strong> <%= reservation.checkOut ?
+  reservation.checkOut.toLocaleDateString() : '' %>
+</p>
+<p><strong>Créé par :</strong> <%= reservation.createdBy %></p>
+
+<a href="/dashboard/reservations">← Retour à la liste</a>
+
+<%- include("partials/footer") %>

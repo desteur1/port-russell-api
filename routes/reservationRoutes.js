@@ -8,10 +8,6 @@ router.use(authMiddleware); // toutes les routes sont protégées
 router.get("/", reservationController.getAllReservations);
 router.get("/:idReservation", reservationController.getReservationById);
 router.post("/", reservationController.createReservation);
-router.delete(
-  "/:idReservation",
-  authMiddleware,
-  reservationController.deleteReservation
-);
+router.delete("/:idReservation", reservationController.deleteReservation);
 
 module.exports = router;

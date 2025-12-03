@@ -74,3 +74,36 @@ exports.deleteCatway = async (req, res) => {
     res.status(500).json({ message: error.message }); // Erreur serveur
   }
 };
+
+// catways via formulaire
+exports.updateCatwayForm = async (req, res) => {
+  try {
+    const { id, ...data } = req.body;
+    req.params.id = id; // on assigne l'id du formulaire aux paramètres de la requête(on met l'id dans params pour réutiliser updateCatway)
+    await exports.updateCatway(req, res); // réutilisation de la fonction updateCatway
+  } catch (error) {
+    res.status(400).json({ message: error.message }); // Mauvaise requête
+  }
+};
+
+// suppression via formulaire
+exports.deleteCatwayFromForm = async (req, res) => {
+  try {
+    const { id } = req.body;
+    req.params.id = id; // on assigne l'id du formulaire aux paramètres de la requête
+    await exports.deleteCatway(req, res); // réutilisation de la fonction deleteCatway
+  } catch (error) {
+    res.status(400).json({ message: error.message }); // Mauvaise requête
+  }
+};
+
+//recupérer les catways par id utilisateur via formulaire
+exports.getCatwayByIdForm = async (req, res) => {
+  try {
+    const { id } = req.body;
+    req.params.id = id; // on assigne l'id du formulaire aux paramètres de la requête
+    await exports.getCatwayById(req, res); // réutilisation de la fonction getCatwayById
+  } catch (error) {
+    res.status(400).json({ message: error.message }); // Mauvaise requête
+  }
+};

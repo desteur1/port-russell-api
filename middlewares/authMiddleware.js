@@ -1,15 +1,29 @@
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  // token via Authorization ou via cookie
+  let token = null;
 
-  if (!authHeader) return res.status(401).json({ message: "Token manquant" });
+  // 1) Token dans le header
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
 
-  const token = authHeader.split(" ")[1]; // Bearer <token>
+  // 2) Token dans le cookie
+  if (!token && req.cookies.token) {
+    token = req.cookies.token;
+  }
+
+  if (!token) {
+    return res.status(401).json({ message: "Token manquant" });
+  }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // tu peux accéder aux infos de l'utilisateur via req.user
+    req.user = decoded;
     next();
   } catch (err) {
     return res.status(401).json({ message: "Token invalide" });
