@@ -1,0 +1,33 @@
+<%- include("partials/header") %>
+
+<h2>Documentation de l’API Port Russell</h2>
+
+<h3>Authentification</h3>
+<ul>
+  <li>POST /auth/register – créer un utilisateur</li>
+  <li>POST /auth/login – se connecter et recevoir un token JWT</li>
+</ul>
+
+<h3>Catways (via dashboard / formulaires)</h3>
+<ul>
+  <li>GET /dashboard/catways – liste de tous les catways</li>
+  <li>GET /dashboard/view-catway?id=… – détail d’un catway</li>
+  <li>POST /form/catways/create – créer un catway</li>
+  <li>POST /form/catways/update – modifier un catway</li>
+  <li>POST /form/catways/delete – supprimer un catway</li>
+</ul>
+
+<h3>Réservations (via dashboard / formulaires)</h3>
+<ul>
+  <li>GET /dashboard/reservations – liste de toutes les réservations</li>
+  <li>GET /dashboard/view-reservation?id=… – détail d’une réservation</li>
+  <li>POST /form/reservations/create – créer une réservation</li>
+  <li>POST /form/reservations/delete – supprimer une réservation</li>
+</ul>
+
+<p>
+  Pour les routes protégées, utiliser un header :
+  <code>Authorization: Bearer &lt;token&gt;</code>
+</p>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,33 @@
+<!--liste réservations-->
+<%- include("partials/header") %>
+
+<h2>Liste des Réservations</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>ID</th>
+    <th>Catway</th>
+    <th>Client</th>
+    <th>Bateau</th>
+    <th>Arrivée</th>
+    <th>Départ</th>
+    <th>Détails</th>
+  </tr>
+
+  <% reservations.forEach(r => { %>
+  <tr>
+    <td><%= r._id %></td>
+    <td><%= r.catwayNumber %></td>
+    <td><%= r.clientName %></td>
+    <td><%= r.boatName %></td>
+    <td><%= r.checkIn ? r.checkIn.toLocaleDateString() : '' %></td>
+    <td><%= r.checkOut ? r.checkOut.toLocaleDateString() : '' %></td>
+    <td>
+      <a href="/dashboard/view-reservation?id=<%= r._id %>">Voir</a>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+<a href="/dashboard">Retour à l'Accueil</a>
+
+<%- include("partials/footer") %>

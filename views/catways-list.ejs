@@ -1,0 +1,26 @@
+<!-- liste des catways --->
+<%- include("partials/header") %>
+
+<h2>Liste des Catways</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>ID</th>
+    <th>Numéro</th>
+    <th>Type</th>
+    <th>État</th>
+    <th>Détails</th>
+  </tr>
+
+  <% catways.forEach(c => { %>
+  <tr>
+    <td><%= c._id %></td>
+    <td><%= c.catwayNumber %></td>
+    <td><%= c.type %></td>
+    <td><%= c.catwayState %></td>
+    <td><a href="/dashboard/view-catway?id=<%= c._id %>">Voir</a></td>
+  </tr>
+  <% }) %>
+</table>
+<a href="/dashboard">Retour à l'Accueil</a>
+<%- include("partials/footer") %>
