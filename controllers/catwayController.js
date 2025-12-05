@@ -101,9 +101,12 @@ exports.deleteCatwayFromForm = async (req, res) => {
 exports.getCatwayByIdForm = async (req, res) => {
   try {
     const { id } = req.body;
-    req.params.id = id; // on assigne l'id du formulaire aux paramètres de la requête
-    await exports.getCatwayById(req, res); // réutilisation de la fonction getCatwayById
+    const catway = await Catway.findById(id);
+
+    if (!catway) return res.status(404).send({ message: "Catway non trouvé" });
+
+    res.render("catway", { catway }); // Rendre la vue avec les données du catway
   } catch (error) {
-    res.status(400).json({ message: error.message }); // Mauvaise requête
+    res.status(400).send({ message: error.message }); // Mauvaise requête
   }
 };

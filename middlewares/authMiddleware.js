@@ -1,31 +1,31 @@
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
-  // token via Authorization ou via cookie
-  let token = null;
+  // support header Authorization: Bearer <token> OR cookie "token"
+  const authHeader = req.headers.authorization;
+  const tokenFromHeader =
+    authHeader && typeof authHeader === "string"
+      ? authHeader.split(" ")[1]
+      : null;
+  const tokenFromCookie =
+    req.cookies && req.cookies.token ? req.cookies.token : null;
 
-  // 1) Token dans le header
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer ")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
-
-  // 2) Token dans le cookie
-  if (!token && req.cookies.token) {
-    token = req.cookies.token;
-  }
+  const token = tokenFromHeader || tokenFromCookie;
 
   if (!token) {
+    // si la requête attend une page HTML (navigateur), rediriger vers l'accueil
+    const acceptsHtml = (req.headers.accept || "").includes("text/html");
+    if (acceptsHtml) return res.redirect("/"); // ou /?error=token
     return res.status(401).json({ message: "Token manquant" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    req.user = decoded; // contient { id: userId } tel que signé
     next();
   } catch (err) {
+    const acceptsHtml = (req.headers.accept || "").includes("text/html");
+    if (acceptsHtml) return res.redirect("/?error=token_invalide");
     return res.status(401).json({ message: "Token invalide" });
   }
 };

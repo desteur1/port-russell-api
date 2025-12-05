@@ -17,7 +17,7 @@ const authRoutes = require("./routes/authRoutes");
 const catwayFormRoutes = require("./routes/catwayFormRoutes");
 const reservationFormRoutes = require("./routes/reservationFormRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
-const documentationRoutes = require("./routes/docRoutes");
+const documentationRoutes = require("./routes/documentationRoutes");
 
 const app = express();
 
@@ -32,19 +32,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//la jsdoc statique
+app.use("/docs", express.static(path.join(__dirname, "docs")));
+
 //Route publiques
 app.use("/auth", authRoutes);
 
+//Routes principales(accueil, login)
+app.use("/", indexRouter);
+
 //Routes protégées
+app.use("/dashboard", dashboardRoutes);
 app.use("/catways", catwayRoutes);
 app.use("/catways/:idCatway/reservations", reservationRoutes);
-app.use("/dashboard", dashboardRoutes);
-app.use("/", documentationRoutes);
+
 //Routes des formulaires
 app.use("/form/catways", catwayFormRoutes);
 app.use("/form/reservations", reservationFormRoutes);
 
-app.use("/", indexRouter);
+//Route documentation view avec ejs
+app.use("/", documentationRoutes);
+
+//Users route
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

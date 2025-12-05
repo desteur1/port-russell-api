@@ -67,7 +67,7 @@ exports.createReservationFromForm = async (req, res) => {
       ...req.body,
       createdBy: req.user.id, // Récupérer l'ID de l'utilisateur authentifié
     });
-    res.redirect("dashboard"); // Rediriger vers le tableau de bord après la création
+    res.redirect("/dashboard"); // Rediriger vers le tableau de bord après la création
   } catch (error) {
     res.redirect("/dashboard?error=" + encodeURIComponent)(error.message); // Mauvaise requête
   }

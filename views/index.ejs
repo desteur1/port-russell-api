@@ -1,12 +1,19 @@
-<!-- page d'accueil + login --->
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <title>Port Russell - Connexion</title>
   </head>
   <body>
-    <%- include("partials/header") %>
+    <header>
+      <h1>Port Russell</h1>
+      <nav>
+        <a href="/">Accueil</a>
+        <a href="/documentation">Documentation API</a>
+      </nav>
+    </header>
+
+    <hr />
 
     <h2>Bienvenue sur l’application Port Russell</h2>
 
@@ -14,18 +21,24 @@
 
     <h3>Connexion</h3>
 
-    <form action="/auth/login-view" method="POST">
-      <label>Email :</label>
-      <input type="email" name="email" required />
+    <form action="/auth/login" method="POST">
+      <label>Email :</label><br />
+      <input type="email" name="email" required /><br /><br />
 
-      <label>Mot de passe :</label>
-      <input type="password" name="password" required />
+      <label>Mot de passe :</label><br />
+      <input type="password" name="password" required /><br /><br />
 
       <button type="submit">Se connecter</button>
     </form>
 
-    <a href="/documentation">Voir la documentation</a>
+    <br />
 
-    <%- include("partials/footer") %>
+    <a href="/docs">Voir la documentation JSDoc</a>
+
+    <hr />
+
+    <footer>
+      <p>Port Russell © 2025</p>
+    </footer>
   </body>
 </html>
