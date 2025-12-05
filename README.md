@@ -9,6 +9,11 @@
 - npm install jsonwebtoken (JWT pour l'authentification)
 - npm install ejs (permet de générer du HTML côté serveur:on peut générer les options depuis ton backend automatiquement)
 - npm install axios (permet de communiquer avec d’autres API ou services web.)
+- npm install Mocha (le framework de test JavaScript. Il permet de :
+  Organiser tes tests avec describe et it)
+- npm install Chai (librairie d’assertions)
+- npm install --save-dev chai-http (pour simuler des requêtes HTTP au serveur Express)
+- npm install --save-dev jsdoc (pour expliqué le code)
 
 #### TP
 

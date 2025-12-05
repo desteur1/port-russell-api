@@ -85,7 +85,7 @@
 </form>
 
 <h4>Afficher une réservation</h4>
-<form action="/dashboard/view-reservation" method="GET">
+<form action="/form/reservations/view" method="POST">
   <input type="text" name="id" placeholder="ID réservation" required />
   <button type="submit">Voir</button>
 </form>
@@ -94,6 +94,10 @@
 
 <a href="/dashboard/catways">Liste des catways</a> |
 <a href="/dashboard/reservations">Liste des réservations</a>
-| <a href="/users">Liste des utilisateurs</a>
+| <a href="/users">Liste des utilisateurs</a> <br />
+<br />
+<div>
+  <a href="/">Retour à l'accueil</a>
+</div>
 
 <%- include("partials/footer") %>
