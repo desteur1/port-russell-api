@@ -1,0 +1,10 @@
+.env*
+
+#########  connexion #########
+
+je sais que vous pouvez vous inscrire et vous aller certainement le faire
+mais j'ai laissé un utilisateur test pour une connexion rapide
+
+USERNAME= nono
+email= nono@gmail.com
+PASSWORD= nono1234
