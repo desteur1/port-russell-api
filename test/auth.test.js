@@ -4,7 +4,7 @@ require("./setup"); // Assure la configuration avant les tests
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../app"); //  fichier app.js
-const User = require("../models/User");
+const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 chai.use(chaiHttp);

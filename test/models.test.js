@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 const Catway = require("../models/Catway");
 const Reservation = require("../models/Reservation");
-const User = require("../models/User");
+const User = require("../models/user");
 
 describe("Models tests", () => {
   describe("Catway model", () => {
