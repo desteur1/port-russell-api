@@ -30,7 +30,7 @@ exports.register = async (req, res) => {
     await newUser.save(); // hash fait dans pre ('save') du modèle User
 
     const acceptsHtml = (req.headers.accept || "").includes("text/html");
-    if (acceptsHtml) return res.redirect("/"); // ou /dashboard ? on laisse login séparé
+    if (acceptsHtml) return res.redirect("/dashboard"); // redirige vers le dashboard après inscription
     res.status(201).json({ newUser });
   } catch (error) {
     console.error(error);
