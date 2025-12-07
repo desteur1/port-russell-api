@@ -11,10 +11,10 @@ router.get("/auth/login-view", (req, res) => {
   res.render("index", { title: "Port Russell - Connexion", error: null });
 });
 
-// Dashboard route
-router.get("/dashboard", (req, res) => {
-  res.render("dashboard", { title: "Dashboard" });
-});
+// // Dashboard route
+// router.get("/dashboard", (req, res) => {
+//   res.render("dashboard", { title: "Dashboard" });
+// });
 
 // Login (POST)
 router.post("/auth/login-view", async (req, res) => {

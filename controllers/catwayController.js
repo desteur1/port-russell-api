@@ -75,14 +75,33 @@ exports.deleteCatway = async (req, res) => {
   }
 };
 
-// catways via formulaire
+// créer un catway via le formulaire
+exports.createCatwayForm = async (req, res) => {
+  try {
+    await Catway.create(req.body);
+
+    // Redirection avec message de succès
+    res.redirect("/dashboard?success=Catway créé avec succès");
+  } catch (error) {
+    // Redirection avec message d'erreur
+    res.redirect("/dashboard?error=" + encodeURIComponent(error.message));
+  }
+};
+
+// updatecatways via formulaire (update ejs)
 exports.updateCatwayForm = async (req, res) => {
   try {
     const { id, ...data } = req.body;
-    req.params.id = id; // on assigne l'id du formulaire aux paramètres de la requête(on met l'id dans params pour réutiliser updateCatway)
-    await exports.updateCatway(req, res); // réutilisation de la fonction updateCatway
+    req.params.id = id;
+    await Catway.findByIdAndUpdate(req.params.id, data, {
+      new: true,
+      runValidators: true,
+    });
+    // Redirection avec message de succès
+    res.redirect("/dashboard?success=Catway mis à jour avec succès");
   } catch (error) {
-    res.status(400).json({ message: error.message }); // Mauvaise requête
+    // Redirection avec message d'erreur
+    res.redirect("/dashboard?error=" + encodeURIComponent(error.message));
   }
 };
 
@@ -90,10 +109,10 @@ exports.updateCatwayForm = async (req, res) => {
 exports.deleteCatwayFromForm = async (req, res) => {
   try {
     const { id } = req.body;
-    req.params.id = id; // on assigne l'id du formulaire aux paramètres de la requête
-    await exports.deleteCatway(req, res); // réutilisation de la fonction deleteCatway
+    await Catway.findByIdAndDelete(id);
+    res.redirect("/dashboard?success=Catway supprimé avec succès");
   } catch (error) {
-    res.status(400).json({ message: error.message }); // Mauvaise requête
+    res.redirect("/dashboard?error=" + encodeURIComponent(error.message));
   }
 };
 

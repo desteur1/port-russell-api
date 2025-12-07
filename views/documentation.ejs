@@ -2,34 +2,141 @@
 
 <h2>Documentation de l’API Port Russell</h2>
 
-<h3>Authentification</h3>
+<p>
+  Cette page présente la documentation complète de l’API Port Russell, incluant
+  son fonctionnement, son utilisation et la liste de toutes les routes
+  disponibles.
+</p>
+
+<!-- Vue d'ensemble -->
+<h3>Vue d’ensemble</h3>
+<p>
+  L’API Port Russell permet de gérer les utilisateurs, les catways (places
+  d’amarrage) et les réservations. Elle est construite avec Express.js, MongoDB
+  et utilise JWT pour l’authentification. Toutes les données sont accessibles
+  via des routes REST.
+</p>
+
+<!-- Tutoriel -->
+<h3>Tutoriel : commencer</h3>
+<ol>
+  <li>
+    Pour créer un compte, envoyer une requête
+    <code>POST /auth/register</code>. Si vous utilisez l'application Web, le
+    formulaire d'inscription appellera automatiquement cette route.
+  </li>
+
+  <li>
+    Se connecter via <code>POST /auth/login</code> pour obtenir un token JWT
+  </li>
+  <li>
+    Ajouter le header suivant pour accéder aux routes protégées :
+    <pre><code>Authorization: Bearer &lt;votre_token&gt;</code></pre>
+  </li>
+  <li>Appeler les routes Catways ou Réservations selon vos besoins</li>
+</ol>
+
+<!-- Exemples -->
+<h3>Exemples de requêtes</h3>
+
+<h4>Créer un utilisateur</h4>
+<pre><code>
+POST /auth/register
+Content-Type: application/json
+
+{
+  "username": "john",
+  "email": "john@mail.com",
+  "password": "123456"
+}
+</code></pre>
+
+<h4>Connexion</h4>
+<pre><code>
+POST /auth/login
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "123456"
+}
+</code></pre>
+<p>
+  Les routes /form/... sont utilisées par les formulaires de l’application EJS.
+  Ce ne sont pas des routes REST destinées à Postman.
+</p>
+
+<h4>Créer un catway</h4>
+<pre><code>
+POST /form/catways/create
+Authorization: Bearer &lt;token&gt;
+
+{
+  "catwayNumber": "1",
+  "Type": "Grand",
+  "catwayState": "Disponible"
+}
+</code></pre>
+
+<h4>Créer une réservation</h4>
+<pre><code>
+POST /form/reservations/create
+Authorization: Bearer &lt;token&gt;
+
+{
+  "catwayNumber": "1",
+  "clientName": "Dupond",
+  "boatName": "Le Marin",
+  "checkIn": "2025-01-12",
+  "checkOut": "2025-01-14"
+}
+</code></pre>
+
+<!-- Liste des routes existantes -->
+<h3>Routes complètes</h3>
+<h4>Authentification</h4>
 <ul>
   <li>POST /auth/register – créer un utilisateur</li>
   <li>POST /auth/login – se connecter et recevoir un token JWT</li>
 </ul>
 
-<h3>Catways (via dashboard / formulaires)</h3>
+<h4>Catways (via dashboard / formulaires)</h4>
 <ul>
   <li>GET /dashboard/catways – liste de tous les catways</li>
   <li>GET /dashboard/view-catway?id=… – détail d’un catway</li>
   <li>POST /form/catways/create – créer un catway</li>
   <li>POST /form/catways/update – modifier un catway</li>
   <li>POST /form/catways/delete – supprimer un catway</li>
+  <li>POST /form/catways/view – afficher un catway</li>
 </ul>
 
-<h3>Réservations (via dashboard / formulaires)</h3>
+<h4>Réservations</h4>
 <ul>
   <li>GET /dashboard/reservations – liste de toutes les réservations</li>
   <li>GET /dashboard/view-reservation?id=… – détail d’une réservation</li>
   <li>POST /form/reservations/create – créer une réservation</li>
   <li>POST /form/reservations/delete – supprimer une réservation</li>
+  <li>POST /form/reservations/view – afficher une réservation</li>
 </ul>
 
-<p>
-  Pour les routes protégées, utiliser un header :
-  <code>Authorization: Bearer &lt;token&gt;</code>
-</p>
+<!-- Glossaire -->
+<h3>5. Glossaire</h3>
+<ul>
+  <li><strong>Catway :</strong> place d’amarrage pour les bateaux</li>
+  <li>
+    <strong>Réservation :</strong> période pendant laquelle un catway est occupé
+  </li>
+  <li>
+    <strong>JWT :</strong> Json Web Token, utilisé pour l’authentification
+  </li>
+  <li>
+    <strong>Token :</strong> clé temporaire permettant d’accéder aux routes
+    protégées
+  </li>
+  <li><strong>Dashboard :</strong> interface interne pour gérer les données</li>
+</ul>
+
 <a href="/">Retour à l'acceueil</a>
-<a href="/dashboard/"> Retour dashboard</a>
+<a href="/dashboard/">Retour dashboard</a>
 
 <%- include("partials/footer") %>

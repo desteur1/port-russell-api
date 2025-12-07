@@ -2,6 +2,11 @@
 <%- include("partials/header") %>
 
 <h2>Liste des Catways</h2>
+<% if (typeof query !== "undefined" && query.success) { %>
+<div class="alert alert-success"><%= query.success %></div>
+<% } %> <% if (typeof query !== "undefined" && query.error) { %>
+<div class="alert alert-danger"><%= query.error %></div>
+<% } %>
 
 <table border="1" cellpadding="8">
   <tr>
