@@ -7,7 +7,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 router.use(authMiddleware);
 
 //créer un catway depuis le formulaire
-router.post("/create", catwayController.createCatway);
+router.post("/create", catwayController.createCatwayForm);
 
 //modifier un catway depuis le formulaire
 router.post("/update", catwayController.updateCatwayForm);

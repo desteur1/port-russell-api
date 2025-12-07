@@ -21,8 +21,12 @@ exports.register = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       const acceptsHtml = (req.headers.accept || "").includes("text/html");
-      if (acceptsHtml) return res.redirect("/?error=utilisateur_existe");
-      return res.status(400).json({ message: "utilisateur déjà existant" });
+      if (acceptsHtml) {
+        return res.redirect(
+          "/dashboard?error=" + encodeURIComponent("Utilisateur déjà existant")
+        );
+      }
+      return res.status(400).json({ message: "Utilisateur déjà existant" });
     }
 
     const newUser = new User({ name, email, password }); // le hashage est fait dans le modèle (user.js)
@@ -30,10 +34,21 @@ exports.register = async (req, res) => {
     await newUser.save(); // hash fait dans pre ('save') du modèle User
 
     const acceptsHtml = (req.headers.accept || "").includes("text/html");
-    if (acceptsHtml) return res.redirect("/dashboard"); // redirige vers le dashboard après inscription
+    if (acceptsHtml) {
+      return res.redirect(
+        "/dashboard?success=" +
+          encodeURIComponent("Utilisateur créé avec succès")
+      ); // redirige vers le dashboard après inscription
+    }
     res.status(201).json({ newUser });
   } catch (error) {
     console.error(error);
+    const acceptsHtml = (req.headers.accept || "").includes("text/html");
+    if (acceptsHtml) {
+      return res.redirect(
+        "/dashboard?error=" + encodeURIComponent(error.message)
+      );
+    }
     res.status(500).json({ message: error.message });
   }
 };
@@ -57,7 +72,7 @@ exports.login = async (req, res) => {
           title: "Port Russell - Connexion",
           error: "Utilisateur non trouvé",
         });
-      return res.status(400).json({ message: "utilisateur non trouvé" });
+      return res.status(400).json({ message: "Utilisateur non trouvé" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);

@@ -5,9 +5,16 @@ connectDB();
 
 const createError = require("http-errors");
 const express = require("express");
+const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+
+// middleware pour désactiver le cache
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  next();
+});
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -19,8 +26,6 @@ const reservationFormRoutes = require("./routes/reservationFormRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const documentationRoutes = require("./routes/documentationRoutes");
 
-const app = express();
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -28,7 +33,8 @@ app.set("view engine", "ejs");
 // middlewares
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//extended: true permet de parser tous les types de données venant des formulaires
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
